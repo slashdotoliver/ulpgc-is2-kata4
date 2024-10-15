@@ -11,7 +11,7 @@ public record Title(
         String primaryTitle,
         String originalTitle,
         boolean isAdult,
-        Year startYear,
+        Optional<Year> startYear,
         Optional<Year> endYear,
         Optional<Duration> runtimeDuration,
         List<Genre> genres

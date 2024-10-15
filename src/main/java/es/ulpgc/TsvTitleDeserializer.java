@@ -44,8 +44,12 @@ public class TsvTitleDeserializer implements TitleDeserializer {
         }
     }
 
-    private Year year(String column) {
-        return Year.parse(column);
+    private Optional<Year> year(String column) {
+        try {
+            return Optional.of(Year.parse(column));
+        } catch (DateTimeParseException e) {
+            return Optional.empty();
+        }
     }
 
     private boolean isAdult(String column) {
