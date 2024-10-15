@@ -1,5 +1,7 @@
 package es.ulpgc;
 
+import java.util.Optional;
+
 public interface TitleDeserializer {
-    Title deserialize(String line);
+    Optional<Title> deserialize(String line);
 }
