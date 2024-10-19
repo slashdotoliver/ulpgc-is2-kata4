@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,14 +18,15 @@ public class TsvTitleReader implements TitleReader {
 
     @Override
     public List<Title> read() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        if (hasHeader) readHeaderWith(reader);
-        return reader
-                .lines()
-                .map(new TsvTitleDeserializer()::deserialize)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .toList();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            if (hasHeader) readHeaderWith(reader);
+            return reader
+                    .lines()
+                    .map(new TsvTitleDeserializer()::deserialize)
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .toList();
+        }
     }
 
     private void readHeaderWith(BufferedReader reader) throws IOException {
