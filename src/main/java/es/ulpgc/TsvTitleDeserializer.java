@@ -3,7 +3,7 @@ package es.ulpgc;
 import java.time.Duration;
 import java.time.Year;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,61 +14,44 @@ public class TsvTitleDeserializer implements TitleDeserializer {
         try {
             return Optional.of(new Title(
                     columns[0],
-                    type(columns[1]),
+                    type(format(columns[1])),
                     columns[2],
                     columns[3],
-                    isAdult(columns[4]),
-                    year(columns[5]),
-                    endYear(columns[6]),
-                    duration(columns[7]),
-                    genres(columns[8])
+                    isAdult(format(columns[4])),
+                    year(format(columns[5])),
+                    year(format(columns[6])),
+                    duration(format(columns[7])),
+                    genres(format(columns[8]))
             ));
         } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
             return Optional.empty();
         }
     }
 
-    private Optional<Duration> duration(String minutes) {
-        try {
-            return Optional.of(Duration.parse("PT" + minutes + "M"));
-        } catch (DateTimeParseException e) {
-            return Optional.empty();
-        }
+    private static String format(String value) {
+        return value.trim().toUpperCase();
     }
 
-    private Optional<Year> endYear(String column) {
-        try {
-            return Optional.of(Year.parse(column));
-        } catch (DateTimeParseException e) {
-            return Optional.empty();
-        }
+    private static List<Title.Genre> genres(String fields) throws IllegalArgumentException {
+        return Arrays
+                .stream(fields.split(","))
+                .map(Title.Genre::valueOf)
+                .toList();
     }
 
-    private Optional<Year> year(String column) {
-        try {
-            return Optional.of(Year.parse(column));
-        } catch (DateTimeParseException e) {
-            return Optional.empty();
-        }
+    private static Title.TitleType type(String column) throws IllegalArgumentException {
+        return Title.TitleType.valueOf(column);
     }
 
-    private boolean isAdult(String column) {
-        return format(column).equals("1");
+    private static Optional<Duration> duration(String minutes) throws DateTimeParseException {
+        return minutes.equals("\\N") ? Optional.empty() : Optional.of(Duration.parse("PT" + minutes + "M"));
     }
 
-    private Title.TitleType type(String column) {
-        return Title.TitleType.valueOf(format(column));
+    private static Optional<Year> year(String column) throws DateTimeParseException {
+        return column.equals("\\N") ? Optional.empty() : Optional.of(Year.parse(column));
     }
 
-    private static List<Title.Genre> genres(String column) {
-        List<Title.Genre> genres = new ArrayList<>();
-        for (String s : column.split(",")) {
-            genres.add(Title.Genre.valueOf(format(s)));
-        }
-        return genres;
-    }
-
-    private static String format(String s) {
-        return s.trim().toUpperCase();
+    private static boolean isAdult(String column) {
+        return column.equals("1");
     }
 }
