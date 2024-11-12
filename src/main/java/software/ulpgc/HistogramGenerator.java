@@ -1,4 +1,4 @@
-package es.ulpgc;
+package software.ulpgc;
 
 import java.util.HashMap;
 import java.util.List;

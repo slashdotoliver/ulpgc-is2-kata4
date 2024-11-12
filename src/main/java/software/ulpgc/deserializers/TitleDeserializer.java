@@ -1,4 +1,6 @@
-package es.ulpgc;
+package software.ulpgc.deserializers;
+
+import software.ulpgc.Title;
 
 import java.util.Optional;
 

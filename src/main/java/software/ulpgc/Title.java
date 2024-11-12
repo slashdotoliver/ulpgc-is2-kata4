@@ -1,4 +1,4 @@
-package es.ulpgc;
+package software.ulpgc;
 
 import java.time.Duration;
 import java.time.Year;

@@ -1,4 +1,8 @@
-package es.ulpgc;
+package software.ulpgc.readers.files;
+
+import software.ulpgc.Title;
+import software.ulpgc.deserializers.files.TsvTitleDeserializer;
+import software.ulpgc.readers.TitleReader;
 
 import java.io.BufferedReader;
 import java.io.File;

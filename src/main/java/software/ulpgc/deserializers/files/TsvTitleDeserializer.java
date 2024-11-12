@@ -1,4 +1,7 @@
-package es.ulpgc;
+package software.ulpgc.deserializers.files;
+
+import software.ulpgc.Title;
+import software.ulpgc.deserializers.TitleDeserializer;
 
 import java.time.Duration;
 import java.time.Year;

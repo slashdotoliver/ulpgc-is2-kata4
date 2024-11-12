@@ -1,4 +1,7 @@
-package es.ulpgc;
+package software.ulpgc;
+
+import software.ulpgc.readers.TitleReader;
+import software.ulpgc.readers.files.TsvTitleReader;
 
 import java.io.File;
 import java.io.IOException;
