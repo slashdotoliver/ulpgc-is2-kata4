@@ -38,6 +38,12 @@ public record Title(
         THRILLER,
         WAR,
         WESTERN,
+        DRAMA,
+        SHORT,
+        ACTION,
+        GAME_SHOW,
+        SCI_FI,
+        TALK_SHOW,
     }
 
     public enum TitleType {

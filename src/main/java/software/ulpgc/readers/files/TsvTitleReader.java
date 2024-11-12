@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class TsvTitleReader implements TitleReader {
+
     private final File file;
     private final boolean hasHeader;
 
@@ -24,11 +25,9 @@ public class TsvTitleReader implements TitleReader {
     public List<Title> read() throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             if (hasHeader) readHeaderWith(reader);
-            return reader
-                    .lines()
+            return reader.lines()
                     .map(new TsvTitleDeserializer()::deserialize)
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
+                    .flatMap(Optional::stream)
                     .toList();
         }
     }

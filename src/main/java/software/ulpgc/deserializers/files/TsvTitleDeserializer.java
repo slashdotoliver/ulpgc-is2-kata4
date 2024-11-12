@@ -7,10 +7,14 @@ import java.time.Duration;
 import java.time.Year;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 public class TsvTitleDeserializer implements TitleDeserializer {
+
+    private static final String EMPTY_FIELD = "\\N";
+
     @Override
     public Optional<Title> deserialize(String line) {
         String[] columns = line.split("\t");
@@ -32,10 +36,11 @@ public class TsvTitleDeserializer implements TitleDeserializer {
     }
 
     private static String format(String value) {
-        return value.trim().toUpperCase();
+        return value.trim().toUpperCase().replace('-', '_');
     }
 
     private static List<Title.Genre> genres(String fields) throws IllegalArgumentException {
+        if (fields.equals(EMPTY_FIELD)) return Collections.emptyList();
         return Arrays
                 .stream(fields.split(","))
                 .map(Title.Genre::valueOf)
@@ -47,11 +52,11 @@ public class TsvTitleDeserializer implements TitleDeserializer {
     }
 
     private static Optional<Duration> duration(String minutes) throws DateTimeParseException {
-        return minutes.equals("\\N") ? Optional.empty() : Optional.of(Duration.parse("PT" + minutes + "M"));
+        return minutes.equals(EMPTY_FIELD) ? Optional.empty() : Optional.of(Duration.parse("PT" + minutes + "M"));
     }
 
     private static Optional<Year> year(String column) throws DateTimeParseException {
-        return column.equals("\\N") ? Optional.empty() : Optional.of(Year.parse(column));
+        return column.equals(EMPTY_FIELD) ? Optional.empty() : Optional.of(Year.parse(column));
     }
 
     private static boolean isAdult(String column) {
