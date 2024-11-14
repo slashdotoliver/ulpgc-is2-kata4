@@ -1,6 +1,6 @@
-package software.ulpgc.readers;
+package software.ulpgc.control.readers;
 
-import software.ulpgc.Title;
+import software.ulpgc.model.Title;
 
 import java.io.IOException;
 import java.util.List;

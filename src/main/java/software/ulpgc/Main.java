@@ -1,7 +1,9 @@
 package software.ulpgc;
 
-import software.ulpgc.readers.TitleReader;
-import software.ulpgc.readers.files.TsvTitleReader;
+import software.ulpgc.control.HistogramGenerator;
+import software.ulpgc.control.readers.TitleReader;
+import software.ulpgc.control.readers.files.TsvTitleReader;
+import software.ulpgc.model.Title;
 
 import java.io.File;
 import java.io.IOException;
