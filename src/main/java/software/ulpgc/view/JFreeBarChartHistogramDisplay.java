@@ -19,7 +19,7 @@ public class JFreeBarChartHistogramDisplay extends JPanel implements HistogramDi
     @Override
     public void display(Histogram histogram) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        addValuesTo(histogram, dataset);
+        addValuesTo(dataset, histogram);
         JFreeChart barChart = ChartFactory.createBarChart(
                 histogram.title(),
                 "Categories",
@@ -29,7 +29,7 @@ public class JFreeBarChartHistogramDisplay extends JPanel implements HistogramDi
         chart.setChart(barChart);
     }
 
-    private static void addValuesTo(Histogram histogram, DefaultCategoryDataset dataset) {
+    private static void addValuesTo(DefaultCategoryDataset dataset, Histogram histogram) {
         histogram.labels()
                 .forEach(label -> dataset.addValue(
                         histogram.valueOf(label),
