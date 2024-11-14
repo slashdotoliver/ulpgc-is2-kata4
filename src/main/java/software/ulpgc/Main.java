@@ -12,10 +12,24 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        TitleReader reader = new TsvTitleReader(new File("./title.basics.tsv"), true);
+    public static void main(String[] arguments) throws IOException {
+        if (!validate(arguments)) exitWithErrorMessage();
+        TitleReader reader = new TsvTitleReader(new File(pathFrom(arguments)), true);
         Histogram histogram = generateHistogram(reader);
         System.out.println(histogram);
+    }
+
+    private static String pathFrom(String[] arguments) {
+        return arguments[0];
+    }
+
+    private static void exitWithErrorMessage() {
+        System.err.println("Error: Needs exactly 1 argument <tsv_file_path>");
+        System.exit(1);
+    }
+
+    private static boolean validate(String[] arguments) {
+        return arguments.length == 1;
     }
 
     private static Histogram generateHistogram(TitleReader reader) throws IOException {
