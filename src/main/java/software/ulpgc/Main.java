@@ -5,18 +5,23 @@ import software.ulpgc.control.readers.TitleReader;
 import software.ulpgc.control.readers.files.TsvTitleReader;
 import software.ulpgc.model.Histogram;
 import software.ulpgc.model.Title;
+import software.ulpgc.view.MainFrame;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] arguments) throws IOException {
         if (!validate(arguments)) exitWithErrorMessage();
         TitleReader reader = new TsvTitleReader(new File(pathFrom(arguments)), true);
-        Histogram histogram = generateHistogram(reader);
-        System.out.println(histogram);
+        display(generateHistogram(reader));
+    }
+
+    private static void display(Histogram histogram) {
+        MainFrame mainFrame = new MainFrame();
+        mainFrame.put(histogram);
+        mainFrame.setVisible(true);
     }
 
     private static String pathFrom(String[] arguments) {

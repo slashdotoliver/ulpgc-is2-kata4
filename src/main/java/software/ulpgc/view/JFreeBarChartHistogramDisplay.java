@@ -7,6 +7,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import software.ulpgc.model.Histogram;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class JFreeBarChartHistogramDisplay extends JPanel implements HistogramDisplay {
 
@@ -36,5 +37,10 @@ public class JFreeBarChartHistogramDisplay extends JPanel implements HistogramDi
                         "Absolute Frequency",
                         label
                 ));
+    }
+
+    public void updateSize(Dimension newSize) {
+        chart.setPreferredSize(newSize);
+        setPreferredSize(newSize);
     }
 }
