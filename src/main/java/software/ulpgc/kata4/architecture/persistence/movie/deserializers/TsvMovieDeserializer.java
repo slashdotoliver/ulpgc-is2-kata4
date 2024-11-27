@@ -1,7 +1,8 @@
-package software.ulpgc.control.deserializers.files;
+package software.ulpgc.kata4.architecture.persistence.movie.deserializers;
 
-import software.ulpgc.model.Title;
-import software.ulpgc.control.deserializers.TitleDeserializer;
+import software.ulpgc.kata4.architecture.model.Movie;
+import software.ulpgc.kata4.architecture.persistence.DeserializationException;
+import software.ulpgc.kata4.architecture.persistence.Deserializer;
 
 import java.time.Duration;
 import java.time.Year;
@@ -11,15 +12,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class TsvTitleDeserializer implements TitleDeserializer {
+public class TsvMovieDeserializer implements Deserializer<String, Movie> {
 
     private static final String EMPTY_FIELD = "\\N";
 
     @Override
-    public Optional<Title> deserialize(String line) {
+    public Movie deserialize(String line) throws DeserializationException {
         String[] columns = line.split("\t");
         try {
-            return Optional.of(new Title(
+            return new Movie(
                     columns[0],
                     type(format(columns[1])),
                     columns[2],
@@ -29,9 +30,13 @@ public class TsvTitleDeserializer implements TitleDeserializer {
                     year(format(columns[6])),
                     duration(format(columns[7])),
                     genres(format(columns[8]))
-            ));
-        } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
-            return Optional.empty();
+            );
+        } catch (
+                ArrayIndexOutOfBoundsException |
+                IllegalArgumentException |
+                DateTimeParseException exception
+        ) {
+            throw new DeserializationException(exception);
         }
     }
 
@@ -39,16 +44,16 @@ public class TsvTitleDeserializer implements TitleDeserializer {
         return value.trim().toUpperCase().replace('-', '_');
     }
 
-    private static List<Title.Genre> genres(String fields) throws IllegalArgumentException {
+    private static List<Movie.Genre> genres(String fields) throws IllegalArgumentException {
         if (fields.equals(EMPTY_FIELD)) return Collections.emptyList();
         return Arrays
                 .stream(fields.split(","))
-                .map(Title.Genre::valueOf)
+                .map(Movie.Genre::valueOf)
                 .toList();
     }
 
-    private static Title.TitleType type(String column) throws IllegalArgumentException {
-        return Title.TitleType.valueOf(column);
+    private static Movie.TitleType type(String column) throws IllegalArgumentException {
+        return Movie.TitleType.valueOf(column);
     }
 
     private static Optional<Duration> duration(String minutes) throws DateTimeParseException {

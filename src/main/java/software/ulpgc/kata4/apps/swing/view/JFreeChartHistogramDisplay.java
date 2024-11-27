@@ -1,19 +1,20 @@
-package software.ulpgc.view;
+package software.ulpgc.kata4.apps.swing.view;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
-import software.ulpgc.model.Histogram;
+import software.ulpgc.kata4.architecture.model.Histogram;
+import software.ulpgc.kata4.architecture.view.HistogramDisplay;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class JFreeBarChartHistogramDisplay extends JPanel implements HistogramDisplay {
+public class JFreeChartHistogramDisplay extends JPanel implements HistogramDisplay {
 
     private final ChartPanel chart;
 
-    public JFreeBarChartHistogramDisplay() {
+    public JFreeChartHistogramDisplay() {
         add(chart = new ChartPanel(null));
     }
 
@@ -34,8 +35,8 @@ public class JFreeBarChartHistogramDisplay extends JPanel implements HistogramDi
         histogram.labels()
                 .forEach(label -> dataset.addValue(
                         histogram.valueOf(label),
-                        "Absolute Frequency",
-                        label
+                        label,
+                        "Absolute Frequency"
                 ));
     }
 

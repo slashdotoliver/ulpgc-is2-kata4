@@ -39,7 +39,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>software.ulpgc.Main</mainClass>
+                            <mainClass>software.ulpgc.kata4.apps.swing.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
