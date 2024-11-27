@@ -8,7 +8,6 @@ import software.ulpgc.kata4.architecture.persistence.DeserializationException;
 import software.ulpgc.kata4.architecture.persistence.Loader;
 import software.ulpgc.kata4.architecture.persistence.movie.loaders.TsvMovieLoader;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.function.Function;
 import java.util.logging.Logger;
