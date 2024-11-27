@@ -41,7 +41,7 @@ public class SQLiteMovieSaver implements Saver<Movie> {
     }
 
     private Connection openConnection(File dbFile) throws SQLException {
-        return DriverManager.getConnection("jdbc:sqlite" + dbFile.getAbsolutePath());
+        return DriverManager.getConnection("jdbc:sqlite:" + dbFile.getAbsolutePath());
     }
 
     private void prepareDatabase() throws SQLException {
