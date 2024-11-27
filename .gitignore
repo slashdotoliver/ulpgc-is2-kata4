@@ -36,5 +36,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/title.basics.tsv
+
 /.idea/
