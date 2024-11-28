@@ -36,7 +36,7 @@ public class SQLiteMovieSaver implements Saver<Movie> {
             prepareDatabase();
             serializer = new SQLiteMovieSerializer(connection);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new IOException(e);
         }
     }
 
