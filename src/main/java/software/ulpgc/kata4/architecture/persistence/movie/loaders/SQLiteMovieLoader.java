@@ -19,14 +19,14 @@ public class SQLiteMovieLoader implements Loader<Movie> {
     private final Connection connection;
     private final ResultSet cursor;
 
-    public SQLiteMovieLoader(File dbFile) {
+    public SQLiteMovieLoader(File dbFile) throws IOException {
         deserializer = new SQLiteMovieDeserializer();
         try {
             connection = openConnection(dbFile);
             cursor = connection.prepareStatement(SELECT_ALL_TITLES_SQL).executeQuery();
             cursor.next();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new IOException(e);
         }
     }
 
