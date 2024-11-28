@@ -20,7 +20,7 @@ public class RandomMovieLoader implements Loader<Movie> {
         this.loader = loader;
         random = new Random(seed);
         nextRandomNumbers(random);
-        nextMovie = nextRandomMovie();
+        nextRandomMovie();
     }
 
     private void nextRandomNumbers(Random random) {
@@ -35,19 +35,23 @@ public class RandomMovieLoader implements Loader<Movie> {
 
     @Override
     public Movie load() throws IOException, DeserializationException {
-        var result = nextMovie;
-        nextMovie = nextRandomMovie();
-        return result;
+        try {
+            return nextMovie;
+        } finally {
+            nextRandomMovie();
+        }
     }
 
-    private Movie nextRandomMovie() throws IOException, DeserializationException {
+    private void nextRandomMovie() throws IOException, DeserializationException {
         Movie movie = loader.load();
         for (int i = 0; i < maxEntry; i++) {
-            if (i % step == 0) movie = loader.load();
-            else loader.load();
+            if (i % step == 0)
+                movie = loader.load();
+            else
+                loader.load();
         }
         nextRandomNumbers(random);
-        return movie;
+        nextMovie = movie;
     }
 
     @Override
