@@ -11,7 +11,7 @@ public record ProgramArguments(String[] args) {
     }
 
     public boolean valid() {
-        if (args.length == 2) return false;
+        if (args.length != 2) return false;
         if (fileType().equals(MoviesFileType.INVALID_FILE_TYPE)) return false;
         if (!file().canRead()) return false;
         if (!file().isFile()) return false;
