@@ -52,7 +52,7 @@ public class SQLiteMovieSerializer implements Serializer<Movie, PreparedStatemen
             setOptionalString(6, movie.startYear(), Year::toString);
             setOptionalString(7, movie.endYear(), Year::toString);
             setOptionalString(8, movie.runtimeDuration(), Duration::toString);
-            setString(9, movie.genres(), g -> g.stream().map(Movie.Genre::name).collect(joining()));
+            setString(9, movie.genres(), g -> g.stream().map(Movie.Genre::name).collect(joining(",")));
         } catch (SQLException e) {
             throw new SerializationException(e);
         }
