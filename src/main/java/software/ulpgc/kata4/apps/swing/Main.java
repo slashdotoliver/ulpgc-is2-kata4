@@ -8,11 +8,13 @@ import software.ulpgc.kata4.architecture.persistence.DeserializationException;
 import software.ulpgc.kata4.architecture.persistence.Loader;
 import software.ulpgc.kata4.architecture.persistence.Saver;
 import software.ulpgc.kata4.architecture.persistence.SerializationException;
-import software.ulpgc.kata4.architecture.persistence.movie.loaders.TsvMovieLoader;
-import software.ulpgc.kata4.architecture.persistence.movie.savers.SQLiteMovieSaver;
+import software.ulpgc.kata4.architecture.persistence.movie.MoviesFileType;
+import software.ulpgc.kata4.architecture.persistence.movie.MovieLoaderCreator;
+import software.ulpgc.kata4.architecture.persistence.movie.loaders.MovieLoaderFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -20,14 +22,23 @@ import java.util.stream.Stream;
 public class Main {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+    private static final MovieLoaderFactory MOVIE_LOADER_FACTORY = createMovieLoaderFactory();
 
     public static void main(String[] args) throws IOException {
         ProgramArguments arguments = new ProgramArguments(args);
         if (!arguments.valid()) exitWithErrorMessage(ProgramArguments.validFormat());
 
-        Loader<Movie> reader = new TsvMovieLoader(arguments.file(), true);
+        displayHistogramFrom(arguments.file(), arguments.fileType());
+    }
+
+    private static void displayHistogramFrom(File file, MoviesFileType type) throws IOException {
+        Optional<Loader<Movie>> movieLoader = MOVIE_LOADER_FACTORY.get(type, file);
+        if (movieLoader.isEmpty()) exitWithErrorMessage(
+                "Could not found a loader for the file %s with type %s".formatted(file.toString(), type.toString())
+        );
+
         display(from(
-                reader,
+                movieLoader.get(),
                 m -> Stream.of(m.type()).map(Movie.TitleType::name),
                 "Histogram of Type of Movies"
         ));
@@ -42,6 +53,13 @@ public class Main {
     private static void exitWithErrorMessage(String message) {
         System.err.println("Error: " + message);
         System.exit(1);
+    }
+
+    private static MovieLoaderFactory createMovieLoaderFactory() {
+        return new MovieLoaderFactory()
+                .register(MoviesFileType.TSV_WITH_HEADER, MovieLoaderCreator::createTsvWithHeaderMovieLoader)
+                .register(MoviesFileType.TSV, MovieLoaderCreator::createTsvWithoutHeaderMovieLoader)
+                .register(MoviesFileType.SQLITE, MovieLoaderCreator::createSQLiteMovieLoader);
     }
 
     private static void readAndWriteMovies(Loader<Movie> loader, Saver<Movie> saver) throws IOException {
