@@ -1,7 +1,10 @@
 package software.ulpgc.kata4.apps.swing;
 
-import software.ulpgc.kata4.apps.swing.view.MainFrame;
+import software.ulpgc.kata4.apps.swing.view.SwingMainFrame;
 import software.ulpgc.kata4.architecture.control.HistogramGenerator;
+import software.ulpgc.kata4.architecture.control.commands.Command;
+import software.ulpgc.kata4.architecture.control.commands.CommandName;
+import software.ulpgc.kata4.architecture.control.commands.DisplayRandomMovieCommand;
 import software.ulpgc.kata4.architecture.model.Histogram;
 import software.ulpgc.kata4.architecture.model.Movie;
 import software.ulpgc.kata4.architecture.persistence.DeserializationException;
@@ -14,6 +17,8 @@ import software.ulpgc.kata4.architecture.persistence.movie.loaders.MovieLoaderFa
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.logging.Logger;
@@ -22,6 +27,7 @@ import java.util.stream.Stream;
 public class Main {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+    private static final Map<CommandName, Command> COMMANDS = new HashMap<>();
     private static final MovieLoaderFactory MOVIE_LOADER_FACTORY = createMovieLoaderFactory();
 
     public static void main(String[] args) throws IOException {
@@ -45,7 +51,16 @@ public class Main {
     }
 
     private static void display(Histogram histogram) {
-        MainFrame mainFrame = new MainFrame();
+        SwingMainFrame mainFrame = new SwingMainFrame(COMMANDS);
+        COMMANDS.put(
+                CommandName.DISPLAY_RANDOM_TITLE, new DisplayRandomMovieCommand(
+                        123456789,
+                        MOVIE_LOADER_FACTORY,
+                        mainFrame.getTypeDialog(),
+                        mainFrame.getFileDialog(),
+                        mainFrame.getMovieDisplay()
+                )
+        );
         mainFrame.put(histogram);
         mainFrame.setVisible(true);
     }
