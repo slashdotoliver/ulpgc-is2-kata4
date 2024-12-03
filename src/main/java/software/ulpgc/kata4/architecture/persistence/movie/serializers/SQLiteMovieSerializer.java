@@ -1,7 +1,6 @@
 package software.ulpgc.kata4.architecture.persistence.movie.serializers;
 
 import software.ulpgc.kata4.architecture.model.Movie;
-import software.ulpgc.kata4.architecture.persistence.DeserializationException;
 import software.ulpgc.kata4.architecture.persistence.SerializationException;
 import software.ulpgc.kata4.architecture.persistence.Serializer;
 
@@ -15,9 +14,8 @@ import java.time.Duration;
 import java.time.Year;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.joining;
 
 public class SQLiteMovieSerializer implements Serializer<Movie, PreparedStatement>, Closeable {
 
@@ -44,23 +42,23 @@ public class SQLiteMovieSerializer implements Serializer<Movie, PreparedStatemen
     @Override
     public PreparedStatement serialize(Movie movie) throws SerializationException {
         try {
-            setString(1, movie.id(), t -> t);
-            setString(2, movie.type(), Movie.TitleType::name);
-            setString(3, movie.primaryTitle(), t -> t);
-            setString(4, movie.originalTitle(), t -> t);
-            setString(5, movie.isAdult(), b -> b ? "true" : "false");
+            setString(1, movie.id());
+            setString(2, movie.type().name());
+            setString(3, movie.primaryTitle());
+            setString(4, movie.originalTitle());
+            setString(5, movie.isAdult() ? "true" : "false");
             setOptionalString(6, movie.startYear(), Year::toString);
             setOptionalString(7, movie.endYear(), Year::toString);
             setOptionalString(8, movie.runtimeDuration(), Duration::toString);
-            setString(9, movie.genres(), g -> g.stream().map(Movie.Genre::name).collect(joining(",")));
+            setString(9, movie.genres().stream().map(Movie.Genre::name).collect(joining(",")));
         } catch (SQLException e) {
             throw new SerializationException(e);
         }
         return insertTitle;
     }
 
-    private <V> void setString(int parameterIndex, V value, Function<V, String> mapper) throws SQLException {
-        insertTitle.setString(parameterIndex, mapper.apply(value));
+    private void setString(int parameterIndex, String text) throws SQLException {
+        insertTitle.setString(parameterIndex, text);
     }
 
     private void setNullString(int parameterIndex, JDBCType type) throws SQLException {
@@ -69,7 +67,7 @@ public class SQLiteMovieSerializer implements Serializer<Movie, PreparedStatemen
 
     private <V> void setOptionalString(int parameterIndex, Optional<V> value, Function<V, String> mapper) throws SQLException {
         if (value.isPresent())
-            setString(parameterIndex, value.get(), mapper);
+            setString(parameterIndex, mapper.apply(value.get()));
         else
             setNullString(parameterIndex, JDBCType.VARCHAR);
     }
