@@ -12,7 +12,7 @@ import software.ulpgc.kata4.architecture.persistence.Loader;
 import software.ulpgc.kata4.architecture.persistence.Saver;
 import software.ulpgc.kata4.architecture.persistence.SerializationException;
 import software.ulpgc.kata4.architecture.persistence.movie.MoviesFileType;
-import software.ulpgc.kata4.architecture.persistence.movie.MovieLoaderCreator;
+import software.ulpgc.kata4.architecture.persistence.movie.loaders.MovieLoaderCreator;
 import software.ulpgc.kata4.architecture.persistence.movie.loaders.MovieLoaderFactory;
 
 import java.io.File;

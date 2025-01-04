@@ -1,9 +1,7 @@
-package software.ulpgc.kata4.architecture.persistence.movie;
+package software.ulpgc.kata4.architecture.persistence.movie.loaders;
 
 import software.ulpgc.kata4.architecture.model.Movie;
 import software.ulpgc.kata4.architecture.persistence.Loader;
-import software.ulpgc.kata4.architecture.persistence.movie.loaders.SQLiteMovieLoader;
-import software.ulpgc.kata4.architecture.persistence.movie.loaders.TsvMovieLoader;
 
 import java.io.File;
 import java.io.IOException;
