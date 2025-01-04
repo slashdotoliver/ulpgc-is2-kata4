@@ -53,7 +53,7 @@ public class Main {
     private static void display(Histogram histogram) {
         SwingMainFrame mainFrame = new SwingMainFrame(COMMANDS);
         COMMANDS.put(
-                CommandName.DISPLAY_RANDOM_TITLE, new DisplayRandomMovieCommand(
+                CommandName.DisplayRandomMovie, new DisplayRandomMovieCommand(
                         123456789,
                         MOVIE_LOADER_FACTORY,
                         mainFrame.getTypeDialog(),

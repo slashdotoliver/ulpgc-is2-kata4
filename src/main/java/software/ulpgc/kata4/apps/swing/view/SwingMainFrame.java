@@ -46,9 +46,9 @@ public class SwingMainFrame extends JFrame {
     }
 
     private Component createRandomTitleButton() {
-        JButton displayRandomTitle = new JButton("Display Random Title");
-        displayRandomTitle.addActionListener(e -> commands.get(CommandName.DISPLAY_RANDOM_TITLE).execute());
-        return displayRandomTitle;
+        JButton displayRandomMovie = new JButton("Display Random Title");
+        displayRandomMovie.addActionListener(e -> commands.get(CommandName.DisplayRandomMovie).execute());
+        return displayRandomMovie;
     }
 
     private Component createTitleFileDialog() {
