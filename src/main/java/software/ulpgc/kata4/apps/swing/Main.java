@@ -39,15 +39,16 @@ public class Main {
 
     private static void displayHistogramFrom(File file, MoviesFileType type) throws IOException {
         Optional<Loader<Movie>> movieLoader = MOVIE_LOADER_FACTORY.get(type, file);
-        if (movieLoader.isEmpty()) exitWithErrorMessage(
+        if (movieLoader.isEmpty())
+            exitWithErrorMessage(
                 "Could not found a loader for the file %s with type %s".formatted(file.toString(), type.toString())
-        );
-
-        display(from(
+            );
+        else
+            display(from(
                 movieLoader.get(),
-                m -> Stream.of(m.type()).map(Movie.TitleType::name),
+                movie -> Stream.of(movie.type().name()),
                 "Histogram of Type of Movies"
-        ));
+            ));
     }
 
     private static void display(Histogram histogram) {
