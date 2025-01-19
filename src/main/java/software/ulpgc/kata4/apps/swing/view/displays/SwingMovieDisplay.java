@@ -1,6 +1,6 @@
-package software.ulpgc.kata4.apps.swing.view;
+package software.ulpgc.kata4.apps.swing.view.displays;
 
-import software.ulpgc.kata4.architecture.model.Movie;
+import software.ulpgc.kata4.architecture.model.entities.Movie;
 import software.ulpgc.kata4.architecture.view.MovieDisplay;
 
 import javax.swing.*;

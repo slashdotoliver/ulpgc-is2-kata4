@@ -1,6 +1,6 @@
 package software.ulpgc.kata4.architecture.persistence.movie.savers;
 
-import software.ulpgc.kata4.architecture.model.Movie;
+import software.ulpgc.kata4.architecture.model.entities.Movie;
 import software.ulpgc.kata4.architecture.persistence.Saver;
 import software.ulpgc.kata4.architecture.persistence.SerializationException;
 import software.ulpgc.kata4.architecture.persistence.movie.serializers.SQLiteMovieSerializer;

@@ -1,8 +1,12 @@
-package software.ulpgc.kata4.apps.swing.view;
+package software.ulpgc.kata4.apps.swing.view.frames;
 
-import software.ulpgc.kata4.architecture.control.commands.Command;
-import software.ulpgc.kata4.architecture.control.commands.CommandName;
-import software.ulpgc.kata4.architecture.model.Histogram;
+import software.ulpgc.kata4.apps.swing.view.dialogs.SwingMovieFileTypeDialog;
+import software.ulpgc.kata4.apps.swing.view.dialogs.SwingMovieFileDialog;
+import software.ulpgc.kata4.apps.swing.view.displays.JFreeChartHistogramDisplay;
+import software.ulpgc.kata4.apps.swing.view.displays.SwingMovieDisplay;
+import software.ulpgc.kata4.architecture.commands.Command;
+import software.ulpgc.kata4.architecture.commands.CommandName;
+import software.ulpgc.kata4.architecture.model.entities.Histogram;
 import software.ulpgc.kata4.architecture.view.MovieDisplay;
 import software.ulpgc.kata4.architecture.view.MovieFileDialog;
 import software.ulpgc.kata4.architecture.view.MovieFileTypeDialog;

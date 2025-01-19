@@ -1,12 +1,13 @@
 package software.ulpgc.kata4.apps.swing;
 
-import software.ulpgc.kata4.apps.swing.view.SwingMainFrame;
-import software.ulpgc.kata4.architecture.control.HistogramGenerator;
-import software.ulpgc.kata4.architecture.control.commands.Command;
-import software.ulpgc.kata4.architecture.control.commands.CommandName;
-import software.ulpgc.kata4.architecture.control.commands.DisplayRandomMovieCommand;
-import software.ulpgc.kata4.architecture.model.Histogram;
-import software.ulpgc.kata4.architecture.model.Movie;
+import software.ulpgc.kata4.apps.swing.model.ProgramArguments;
+import software.ulpgc.kata4.apps.swing.view.frames.SwingMainFrame;
+import software.ulpgc.kata4.architecture.model.HistogramGenerator;
+import software.ulpgc.kata4.architecture.commands.Command;
+import software.ulpgc.kata4.architecture.commands.CommandName;
+import software.ulpgc.kata4.architecture.commands.DisplayRandomMovieCommand;
+import software.ulpgc.kata4.architecture.model.entities.Histogram;
+import software.ulpgc.kata4.architecture.model.entities.Movie;
 import software.ulpgc.kata4.architecture.persistence.DeserializationException;
 import software.ulpgc.kata4.architecture.persistence.Loader;
 import software.ulpgc.kata4.architecture.persistence.Saver;

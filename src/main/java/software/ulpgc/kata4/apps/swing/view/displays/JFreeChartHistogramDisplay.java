@@ -1,10 +1,10 @@
-package software.ulpgc.kata4.apps.swing.view;
+package software.ulpgc.kata4.apps.swing.view.displays;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
-import software.ulpgc.kata4.architecture.model.Histogram;
+import software.ulpgc.kata4.architecture.model.entities.Histogram;
 import software.ulpgc.kata4.architecture.view.HistogramDisplay;
 
 import javax.swing.*;

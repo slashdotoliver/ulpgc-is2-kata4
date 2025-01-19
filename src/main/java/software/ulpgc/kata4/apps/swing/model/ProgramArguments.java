@@ -1,4 +1,4 @@
-package software.ulpgc.kata4.apps.swing;
+package software.ulpgc.kata4.apps.swing.model;
 
 import software.ulpgc.kata4.architecture.persistence.movie.MoviesFileType;
 

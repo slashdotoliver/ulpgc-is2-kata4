@@ -1,6 +1,6 @@
-package software.ulpgc.kata4.architecture.control;
+package software.ulpgc.kata4.architecture.model;
 
-import software.ulpgc.kata4.architecture.model.Histogram;
+import software.ulpgc.kata4.architecture.model.entities.Histogram;
 
 import java.util.HashMap;
 import java.util.List;

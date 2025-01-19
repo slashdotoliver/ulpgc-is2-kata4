@@ -1,4 +1,4 @@
-package software.ulpgc.kata4.apps.swing.view;
+package software.ulpgc.kata4.apps.swing.view.dialogs;
 
 import software.ulpgc.kata4.architecture.view.MovieFileDialog;
 

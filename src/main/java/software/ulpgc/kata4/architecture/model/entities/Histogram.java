@@ -1,4 +1,4 @@
-package software.ulpgc.kata4.architecture.model;
+package software.ulpgc.kata4.architecture.model.entities;
 
 import java.util.List;
 
